@@ -32,6 +32,9 @@ It will also copy the static asset `icon.png` with the above hashed URL to your 
 
 You can also specifiy a `--limit` (or `-l`) option, and if the file is under that size in bytes, it will be inlined as a regular data URI.
 
+
+**NOTE:** Because of the way browserify and module-deps transform loading works, this currently is not applied to a projects dependencies -- only the top-level source. 
+
 ## Usage
 
 [![NPM](https://nodei.co/npm/urify-emitter.png)](https://nodei.co/npm/urify-emitter/)

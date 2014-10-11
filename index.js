@@ -11,6 +11,9 @@ var path = require("path");
 var xtend = require('xtend')
 var mkdirp = require('mkdirp')
 var async = require('async')
+var urify = require('urify')
+
+var files = []
 
 function toURI(path, opt) {
     opt.resourcePath = path
@@ -23,12 +26,11 @@ function copy(output, item, done) {
 }
 
 function emit(output, uris) {
-    var out = []
     async.eachSeries(uris, copy.bind(null, output), function(err) {
         if (err)
             throw new Error(err)
     })
-    // fs.writeFileSync("test.txt", JSON.stringify(out))
+    fs.writeFileSync("test.txt", JSON.stringify(files))
 }
 
 module.exports = function(browserify, opt) {
@@ -85,6 +87,5 @@ module.exports = function(browserify, opt) {
             return out
         }
 
-    });
-
-};
+    }, { global: opt.global })
+}
