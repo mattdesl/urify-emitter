@@ -2,7 +2,7 @@
 
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-This builds on the idea of the [urify](https://github.com/mattdesl/urify) transform, but emits a file into an application-level output directory. This allows for modular front-end code which relies on images and icons, without increasing JS bundle size or sacrificing browser image caching optimizations. 
+Similar to webpack's file-loader, this builds on the [urify](https://github.com/mattdesl/urify) transform but emits a file into an application-level output directory. This allows for modular front-end code which relies on images and icons, without increasing JS bundle size or sacrificing browser image caching optimizations. 
 
 Example front-end code:  
 
@@ -22,13 +22,13 @@ Now, from your application, you can bundle the code using the urify-emitter plug
 
 ```browserify -p [ urify-emitter -o images ] index.js > bundle.js```
 
-This will emit a `bundle.js` file as usual which inlines `uri` to:
+This will emit a `bundle.js` file, which inlines the URI like so:  
 
 ```js
 var uri = '53cf2c1426533b467d606312b4e246ef.png'
 ```
 
-It will also copy the static asset `icon.png` with a hashed URL to your specified output directory, in this case `images`. 
+It will also copy the static asset `icon.png` with the above hashed URL to your specified output directory, in this case `images`. 
 
 You can also specifiy a `--limit` (or `-l`) option, and if the file is under that size in bytes, it will be inlined as a regular data URI.
 
