@@ -2,7 +2,7 @@
 
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-Similar to webpack's file-loader, this builds on the [urify](https://github.com/mattdesl/urify) transform but emits a file into an application-level output directory. This allows for modular front-end code which relies on images and icons, without increasing JS bundle size or sacrificing browser image caching optimizations. 
+Similar to webpack's file-loader, this builds on the [urify](https://www.npmjs.org/package/urify) transform but emits a file into an application-level output directory. This allows for modular front-end code which relies on images and icons, without increasing JS bundle size or sacrificing browser image caching optimizations. 
 
 Example front-end code:  
 
@@ -31,8 +31,6 @@ var uri = '53cf2c1426533b467d606312b4e246ef.png'
 It will also copy the static asset `icon.png` with the above hashed URL to your specified output directory, in this case `images`. 
 
 You can also specifiy a `--limit` (or `-l`) option, and if the file is under that size in bytes, it will be inlined as a regular data URI.
-
-**NOTE:** Currently a [bug with static-module](https://github.com/substack/static-module/issues/3) makes this module unstable; I'll be looking into it ASAP.
 
 ## Usage
 
