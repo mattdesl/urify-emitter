@@ -1,6 +1,6 @@
 {
   "name": "urify-emitter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "emits files instead of inlining base64 urls",
   "main": "index.js",
   "license": "MIT",
