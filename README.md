@@ -32,6 +32,8 @@ It will also copy the static asset `icon.png` with the above hashed URL to your 
 
 You can also specifiy a `--limit` (or `-l`) option, and if the file is under that size in bytes, it will be inlined as a regular data URI.
 
+**NOTE:** Currently a [bug with static-module](https://github.com/substack/static-module/issues/3) makes this module unstable; I'll be looking into it ASAP.
+
 ## Usage
 
 [![NPM](https://nodei.co/npm/urify-emitter.png)](https://nodei.co/npm/urify-emitter/)
