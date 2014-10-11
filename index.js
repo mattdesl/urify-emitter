@@ -13,8 +13,6 @@ var mkdirp = require('mkdirp')
 var async = require('async')
 var urify = require('urify')
 
-var files = []
-
 function toURI(path, opt) {
     opt.resourcePath = path
     return loaderUtils.interpolateName(opt, opt.name || '[hash].[ext]', opt)
@@ -30,7 +28,6 @@ function emit(output, uris) {
         if (err)
             throw new Error(err)
     })
-    fs.writeFileSync("test.txt", JSON.stringify(files))
 }
 
 module.exports = function(browserify, opt) {
