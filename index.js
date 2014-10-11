@@ -11,7 +11,6 @@ var path = require("path");
 var xtend = require('xtend')
 var mkdirp = require('mkdirp')
 var async = require('async')
-var urify = require('urify')
 
 function toURI(path, opt) {
     opt.resourcePath = path
