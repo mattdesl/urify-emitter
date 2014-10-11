@@ -28,7 +28,7 @@ function emit(output, uris) {
         if (err)
             throw new Error(err)
     })
-    fs.writeFileSync("test.txt", JSON.stringify(out))
+    // fs.writeFileSync("test.txt", JSON.stringify(out))
 }
 
 module.exports = function(browserify, opt) {
