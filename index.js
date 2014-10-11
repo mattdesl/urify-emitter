@@ -64,28 +64,25 @@ module.exports = function(browserify, opt) {
         return sm
         
         function urify(file, emitOpt) {
-            var stream = through()
-            
             if (!fs.statSync(file).isFile())
                 throw new Error('datauri must point to a file: '+file)
 
             emitOpt = emitOpt||{}
             emitOpt.content = fs.readFileSync(file, emitOpt.encoding)
 
+            var out 
             if (limit >= 0 && emitOpt.content.length <= limit) {
                 var data = datauri(file)
-                stream.push("'"+escape(data)+"'")
+                out = "'"+escape(data)+"'"
             } else {
                 var uri = toURI(file, emitOpt)
                 uris.push({
                     file: file,
                     uri: uri
                 })
-                stream.push("'"+escape(uri)+"'")
+                out = "'"+escape(uri)+"'"
             }
-                
-            stream.push(null)
-            return stream
+            return out
         }
 
     });
