@@ -1,87 +1,22 @@
-var fs = require('fs-extra')
-var path = require('path')
+//HACK: 
+//browserify runs module-deps before the plugins are setup,
+//which means all the modules will already have their urlify transforms
+//already run. Instead, we need to disable it for the command-line
+//and run it through the plugin architecture as a global transform
+
+//Hopefully a better solve will be found shortly.
+
 var through = require('through2')
+var urify = require('urify')
 
-var staticModule = require('static-module')
-var datauri = require('datauri')
-var escape = require('js-string-escape')
-
-var loaderUtils = require("loader-utils");
-var path = require("path");
-var xtend = require('xtend')
-var mkdirp = require('mkdirp')
-var async = require('async')
-
-function toURI(path, opt) {
-    opt.resourcePath = path
-    return loaderUtils.interpolateName(opt, opt.name || '[hash].[ext]', opt)
+function noop(file, opt) {
+    return through()
 }
 
-function copy(output, item, done) {
-    var outfile = path.join(output, path.basename(item.file))
-    fs.copy(item.file, outfile, done)
+module.exports = require('./plugin')
+
+module.exports.enabled = function(bool) {
+	urify.__emitter = bool ? noop : null
 }
 
-function emit(output, uris) {
-    async.eachSeries(uris, copy.bind(null, output), function(err) {
-        if (err)
-            throw new Error(err)
-    })
-}
-
-module.exports = function(browserify, opt) {
-    opt = opt||{}
-    var uris = []
-    var output = (opt.o || opt.output) || ''
-    var limit = (opt.l || opt.limit)
-    limit = typeof limit === 'number' ? limit : -1
-
-    browserify.on('bundle', function(bundle) {
-
-        bundle.on('end', function() {
-            mkdirp(output, function(err) {
-                if (err)
-                    throw err
-                emit(output, uris)
-            })
-        });
-
-    });
-
-    browserify.transform(function(file) {
-        if (/\.json$/.test(file)) return through()
-        var vars = {
-            __filename: file,
-            __dirname: path.dirname(file)
-        }
-        
-        var sm = staticModule(
-            { 'datauri': urify },
-            { vars: vars }
-        )
-        return sm
-        
-        function urify(file, emitOpt) {
-            if (!fs.statSync(file).isFile())
-                throw new Error('datauri must point to a file: '+file)
-
-            emitOpt = emitOpt||{}
-            emitOpt.content = fs.readFileSync(file, emitOpt.encoding)
-
-            var out 
-            if (limit >= 0 && emitOpt.content.length <= limit) {
-                var data = datauri(file)
-                out = "'"+escape(data)+"'"
-            } else {
-                var uri = toURI(file, emitOpt)
-                uris.push({
-                    file: file,
-                    uri: uri
-                })
-                out = "'"+escape(uri)+"'"
-            }
-            return out
-        }
-
-    }, { global: opt.global })
-}
+module.exports.enabled(true)

@@ -18,6 +18,7 @@
     "mkdirp": "^0.5.0",
     "static-module": "^1.0.0",
     "through2": "^0.6.3",
+    "urify": "^1.0.3",
     "xtend": "^4.0.0"
   },
   "devDependencies": {
