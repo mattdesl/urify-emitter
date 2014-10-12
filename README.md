@@ -25,7 +25,7 @@ Now, from your application, you can bundle the code using the urify-emitter plug
 This will emit a `bundle.js` file, which inlines the URI like so:  
 
 ```js
-var uri = '53cf2c1426533b467d606312b4e246ef.png'
+var uri = 'images/53cf2c1426533b467d606312b4e246ef.png'
 ```
 
 It will also copy the static asset `icon.png` with the above hashed URL to your specified output directory, in this case `images`. 

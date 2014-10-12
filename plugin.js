@@ -31,7 +31,9 @@ function norm(dir) {
 
 function toURI(path, opt, output) {
     var name = toName(path, opt)
-    return urljoin(norm(output||''), name)
+
+    var dir = norm(output||'')
+    return dir ? urljoin(dir, name) : name
 }
 
 function copy(output, item, done) {
@@ -50,7 +52,7 @@ module.exports = function(browserify, opt) {
     opt = opt||{}
     var uris = []
     opt.output = opt.o || opt.output || ''
-    opt.base = opt.b || opt.base || ''
+    opt.base = opt.b || opt.base
     
     browserify.on('bundle', function(bundle) {
 
