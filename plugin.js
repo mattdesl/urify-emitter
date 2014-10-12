@@ -49,15 +49,16 @@ function emit(output, uris) {
 module.exports = function(browserify, opt) {
     opt = opt||{}
     var uris = []
-    var output = (opt.o || opt.output) || ''
-
+    opt.output = opt.o || opt.output || ''
+    opt.base = opt.b || opt.base || ''
+    
     browserify.on('bundle', function(bundle) {
 
         bundle.on('end', function() {
-            mkdirp(output, function(err) {
+            mkdirp(opt.output, function(err) {
                 if (err)
                     throw err
-                emit(output, uris)
+                emit(opt.output, uris)
             })
         })
 
