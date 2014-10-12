@@ -6,15 +6,32 @@ var staticModule = require('static-module')
 var datauri = require('datauri')
 var escape = require('js-string-escape')
 
-var loaderUtils = require("loader-utils");
-var path = require("path");
+var loaderUtils = require("loader-utils")
+var path = require("path")
 var xtend = require('xtend')
 var mkdirp = require('mkdirp')
 var async = require('async')
 
-function toURI(path, opt) {
+var noslash = require('remove-trailing-slash')
+var urljoin = require('url-join')
+
+function toName(path, opt) {
     opt.resourcePath = path
     return loaderUtils.interpolateName(opt, opt.name || '[hash].[ext]', opt)
+}
+
+function norm(dir) {
+    dir = noslash(dir)
+    if (dir === '.')
+        dir = ''
+    //remove leading slash
+    dir = dir.replace(/^(\.(\\|\/)+)?/, '')
+    return dir
+}
+
+function toURI(path, opt, output) {
+    var name = toName(path, opt)
+    return urljoin(norm(output||''), name)
 }
 
 function copy(output, item, done) {
@@ -42,9 +59,9 @@ module.exports = function(browserify, opt) {
                     throw err
                 emit(output, uris)
             })
-        });
+        })
 
-    });
+    })
 
     browserify.transform(function(file) {
         return transform(file, opt, uris)
@@ -80,7 +97,7 @@ function transform(file, opt, uris) {
             var data = datauri(file)
             out = "'"+escape(data)+"'"
         } else {
-            var uri = toURI(file, emitOpt)
+            var uri = toURI(file, emitOpt,/* opt.base || */opt.output)
             if (Array.isArray(uris)) {
                 uris.push({
                     file: file,

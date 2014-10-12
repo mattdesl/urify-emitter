@@ -3,6 +3,5 @@ node_modules
 *.log
 .DS_Store
 bundle.js
-test
-test.js
+test/
 demo/
