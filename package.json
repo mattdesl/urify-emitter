@@ -19,7 +19,6 @@
     "remove-trailing-slash": "^0.1.0",
     "static-module": "^1.0.0",
     "through2": "^0.6.3",
-    "urify": "^1.0.4",
     "url-join": "0.0.1",
     "xtend": "^4.0.0"
   },
