@@ -97,7 +97,7 @@ function transform(file, opt, uris) {
             var data = datauri(file)
             out = "'"+escape(data)+"'"
         } else {
-            var uri = toURI(file, emitOpt,/* opt.base || */opt.output)
+            var uri = toURI(file, emitOpt, opt.base || opt.output)
             if (Array.isArray(uris)) {
                 uris.push({
                     file: file,
