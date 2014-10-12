@@ -41,6 +41,7 @@ You can also specifiy a `--limit` (or `-l`) option, and if the file is under tha
 
 - `--output`, `-o` the output directory, defaults to `.`
 - `--limit`, `-l` the limit in bytes, under which we will inline with a Data URI
+- `--base`, `-b` an optional base to use on the inlined URL, which is joined with the asset name. For example, your local output directory might be in `app/output`, but your site URLs you can specify `--base output` so they look like `output/53cf2c14265..png`
 
 ## License
 
