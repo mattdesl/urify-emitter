@@ -12,11 +12,11 @@ var urify = require('urify')
 function noop(file, opt) {
     return through()
 }
-
+urify.__emitter = noop
 module.exports = require('./plugin')
 
-module.exports.enabled = function(bool) {
-	urify.__emitter = bool ? noop : null
-}
+// module.exports.enabled = function(bool) {
+// 	urify.__emitter = bool ? noop : null
+// }
 
-module.exports.enabled(true)
+// module.exports.enabled(true)
