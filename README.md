@@ -32,8 +32,15 @@ It will also copy the static asset `icon.png` with the above hashed URL to your 
 
 You can also specifiy a `--limit` (or `-l`) option, and if the file is under that size in bytes, it will be inlined as a regular data URI.
 
+## bundle-wide 
 
-**NOTE:** Because of the way browserify and module-deps transform loading works, this currently is not applied to a projects dependencies -- only the top-level source. 
+The plugin only transforms source at the top-level (i.e. application). To transform all module code throughout a bundle, you will need browserify v.6.1.0+ and the `--ignore-transform` command to override all `urify` transforms:
+
+```browserify -p urify-emitter --it urify index.js > bundle.js```
+
+## gulp, grunt, npm scripts
+
+For a practical implementation of this, see [urify-example](https://github.com/mattdesl/urify-example).
 
 ## Usage
 
